@@ -184,6 +184,57 @@ Redhat，包管理rpm、前端管理yum(不过很快就要改了)
 
 第六课 Linux终端管理与命令入门
 这里跳了一段，看不到安装步骤，暂时放置这个课程，看一看菜鸟教程和慕课网
-
-
+继续来看，CentOS镜像站点：
+	http://mirrors.aliyun.com、163.com、mirrors.sohu.com
+	重点注意：硬盘大小，120G、网卡，桥接模式
+terminal终端，用户界面或者用户接口，GUI与CLI
+	查看所用的shell类型，echo $SHELL、/bin/bash
+为了演示与学习的方便，建议使用运程连接，ssh协议，secure shell,
+	ss -tnl查看系统是否监听于tcp协议的22号端口
+	ifconfig、ip addr list查看主机ip地址，之后可以ping一样看虚拟机与主机
+	能否连通，能够连通就可以了。
+	确保防火墙处于关闭状态，只对当前状态有效，如果使用ISO镜像
+	~]# iptables -L -n，先看一看
+	CentOS 7:
+		systemctl disable firewalld.service
+		systemctl stop firewalld.service
+	CentOS 6:
+		service iptables stop
+		chkconfig iptables off
+键盘、显示器等输入输出设备就叫一套终端设备，
+	物理终端，控制台、启动时会使用到，之后会到，console，/dev/console
+	虚拟终端，默认6个，台式机上Ctrl+Alt+F[1-6],tty,/dev/tty# [1,6]
+	图形终端，CentOS 6、Ctrl+Alt+F7，CentOS 7在哪个虚拟终端启动，即位于那里
+	串行终端，ttyS，/dev/ttyS#
+	伪终端，pty，/dev/pts/#
+Linux哲学思想之一，一切皆文件。
+注意，在启动设备之后，在其上关联一个用户接口程序，即可实现与用户交互
+	查看终端设备，~]# tty
+	查看接口程序，~]# echo $SHELL
+Shell可以说是操作系统的外核，用来与外界交互。
+prompt命令提示符，从慕课过来复习一下
+	node1，当前主机主机名，非完整格式，完整应为node1.magedu.com
+	~，用户所在目录current/working directory，
+	注意，建议使用非管理员账号登录，执行管理操作临时切换到管理员，
+	操作完成立即退返。因为管理员权限太大，大到能够自杀销毁。
+	echo回声，回显，给啥回啥，
+	Linux下ping探测目标主机与当前主机之间的连通性，不像Windows那样
+	会自动停止，需要用Ctrl+c来停止
+关机命令，~]# systemctl poweroff、
+	systemctl reboot重启、halt即为挂起，
+软件界的自由，自由学习和修改、自由使用、自由分发、自由创建衍生版，
+Linux哲学思想之二，由众多功能单一的程序组成，一个程序只做好一件事。
+之三，尽量避免跟用户交互，目的在于以编程方式实现自动化任务
+之四，使用文本文件保存配置信息，最简单的一种数据
+思考，平面化与层次化，众多的文件如何有效组织起来？
+	基于层级路径就是文件管理系统，目前行政管理系统四级省市县乡，
+	之后可能会撤市成三级管理，文件：存储空间存储的一段流式数据。
+路径，最左侧/：表示根目录，其它的Linux用/分隔、而Windows当时
+想要标新立异采用\分隔，注意区分学习。
+	相对路径与绝对路径，访问时哪个更近，看是否在同一目录，实践
+文件名使用法则：
+	严格区分大小写，目录也是文件、同一路径下两个文件不能同名，
+	支持使用除/以外的任意字符，最长不能超过255个字符。
+普通用户有个私密目录，放在home下，作为该用户的起始目录
+basename，路径最右侧的文件或目录，其左侧的都叫目录路径dirname
 
