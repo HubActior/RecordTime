@@ -54,3 +54,23 @@ rmdir，remove empty d删除空白目录，有东西都不能删。更常用的�
 当前有八个命令了，要注意常见目录的作用。
     根目录下bin和sbin，usr目录下bin和sbin这四个目录都是用来保存系统命令的。sbin是只有super用户才有使用的，dev特殊文件保存目录，etc是系统默认的配置文件，lib函数库文件，media\mnt\misc三个空目录，proc和sys两个目录不能直接操作，保存的是内存的过载点。tmp临时文件目录，目前只需要关心home、root和tmp三个目录就行了。
 链接命令ln、link，ln -s [原文件] [目录文件]，-s软链接，看硬链接特征：1拥有相同的i节点和存储block块，可看做是同一文件，可类比教室的前门后门，访问的是同一个位置。2可且只能通过i节点识别，3不能跨分区，4不能针对目录使用。推荐使用软链接，更加灵活，1类似Windows里的快捷方式，2拥有自己的i节点和Block，但数据块中只保存原文件的文件名和i节点号，没有实际文件数据，3其文件权限都为lrwxrwxrwx、其实权限还得看原文件的权限、表示的只是和原文件有一样的权限，4修改任意文件、另一个都改变，5删除原文件，则软链接不能使用了。
+第四节，文件搜索命令，共五个命令
+locate 文件名，在后台数据库中按文件名搜索、速度更快，/var/lib/mlocate，默认1000行更新一次，可以updatedb手动更新。搜索过程中会遵守/etc/updatedb.conf配置文件的设置，有些目录是不会去搜索的。
+whereis 命令，搜索命令的位置，-b只查可执行文件、-m只查帮助文件，which搜索命令时，若命令有别名也会显示、cd命令是shell编程所带的，不在Linux命令之中，也有PATH环境变量的说法。各个位置以冒号:隔开，注意区分Windows的分号;如此哈
+find命令，功能十分强大，find [搜索范围] [搜索条件]，实际情况下，必须避免在若大范围里去搜索，十分消耗电脑资源，Windows也是如此。find / -name install.log，默认完全匹配搜索，如果要模糊搜索就需要用到通配符，*任意内容、？任意一个字符、[]匹配任意其中一个字符，使用通配符需要双引号""起来。
+    若加上iname就不区分大小写了，find /root -nouser查找没有所有者的文件，只有两类特殊，一类是内核中交互产生在sys和proc中的文件、一类是外部文件，如Windows编写的文件，或U盘拷贝到Linux中的文件。其余的nouser文件都可定义为垃圾文件，还可按时间来搜索，如下
+        find /var/log/ -mtime +10
+        -10，10天内、10，10那一天的24小时、+10，10天前
+        atime、access，ctime、change，mtime、modify
+        没有10天后这个概念哈，另外find . -size 25k按大小，25M，注意单位的大小写，确实是这样。结点inum
+    find支持逻辑与或，find /etc -size +20k -a -size -50k，找出来满足条件的文件，然后再ls -lh看详细信息，
+    也可以在末尾加上-exec ls -lh {} \，表示执行完find再执行ls -lh，注意固定格式。
+grep，字符串命令，grep [选项] 字符串 文件名，-i忽略大小写、-v排队指定字符串，与find区别，find完全匹配、grep包含匹配，有个正则表达式的概念。find在系统当中搜索符合条件的文件名（通配符）、grep在文件当中搜索符合条件的字符串（正则表达式）
+第五节，帮助命令，3个
+man、manual，ls、list directory contents，man -f可以看到有几个级别的帮助，相当于whatis，man -k相当于approcess。
+还有其他帮助，如ls --help，直观定位，以及help shell内核命令，help cd，用whereis来判断是否是内核命令，找不到执行文件就是了。还有个info命令，操作太复杂了。
+第六节，压缩命令，
+Windows压缩格式.zip、.rar，Linux中更多，如.zip、.gz、.bz2、.tar.gz、.tar.bz2，压缩文件比原文件还大是有可能的，因为压缩命令有大小撒。zip 压缩文件名 源文件，同理加-r目录，解压缩直接unzip 压缩文件，没有区分。rar是Windows下特有的压缩格式，压缩效率比zip更高。gzip 源文件，默认源文件会消失、可通过gzip -c 源文件 > 压缩文件，将源文件显示出来。需要注意，gzip -r 目录时，只是压缩目录下的所有子文件，而不能压缩目录。解压缩可以gzip -d 压缩文件，或者 gunzip 压缩文件。同样不会保留压缩文件，意味着默认源与压缩，留其一。
+另外.bz2格式，bzip2 源文件，默认不保留源文件，可bzip2 -k，注意bzip2压根就不能压缩目录。解压缩bzip2 -d或bunzip2同理
+    tar命令就是用来解决目录不能压缩的问题，tar -cvf 打包文件名 源文件，-c打包、-v显示过程、-f指定打包后的文件名。如tar -cvf what.tar what，-xvf解打包，先打包再压缩。有更加简洁的方式，tar -zcvf 压缩包名.tar.gz 源文件，
+    -jcvf成.tar.bz2，可以指定解压缩目录tar -jxcf jp.tar.bz2 -C /tmp/，压缩到指定目录也可以，直接包名前加绝对路径。tar -ztvf test.tar.gz，只查看而非解压，注意t是test，测试查看的意思。着重后两种方式！
