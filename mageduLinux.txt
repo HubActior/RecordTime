@@ -1,0 +1,152 @@
+20191006，第一课、Linux运维开课说明
+马哥表示VMware最好用12版本，功能齐全，才100多兆。
+同时，有个国外的Ppt分享网站，http://www.slideshare.net，需要翻墙，
+有些公司会问到，你用什么软件翻墙，不会那就回去等通知吧，哈哈！
+建议多安装几个浏览器，工欲善其事，必先利其器。用国外浏览器，Chrome\Firefox、Opera，说国人的各个极速浏览器都是骗人的，只是换了个壳子。
+介绍了Edraw，国产绘图工具。Sublime文本编辑器、用python编写的，非常适合做文本查看，还有个npp工具。会用到picpick_inst截图工具。
+Xmanager（ssh)相关的东西，wps-office办公软件，
+第二课、课程体系及学习路线图
+Linux运维课程体系大纲：第一阶段
+入门、
+系统管理、
+服务及案例管理（运用得最多的，对零Linux基础的来说很难），入门之后就轻松了，冲关之后概念就清晰了。学完可以考前两种认证，之后讲RHCA的内容
+此前还需要讲到相关服务协议：httpd\lamp\lnmp,Cache\memcached\varnish
+DB:mysql\mariadb（主讲）
+Linux Cluster集群：
+     LB Cluster：Nginx，LVS
+     HA Cluster：Keepalived
+Linux Ops:ansible
+Monitoring:zabblx
+shell脚本编程
+第二阶段
+http协议：tomcat\lnmt\lamt\session\replication cluster
+        分布式存储系统：
+		MogileFS，GlusterFS
+	LB Cluster:haproxy
+	HA Cluster:Corosync+Pacemaker，pcs/crmsh，结合些案例
+	MySQL：HA Cluster、MHA、备份和恢复、MySQL Replcation、
+		Read-Write splitting
+	MoSQL:redis ,mongodb ,HBase、可文档存储
+	运维工具：pupet（市场上最成熟的工具）
+	虚拟化：
+		Linux操作系统原理，虚拟技术原理
+		kvm虚拟化应用详解，xen目前逐渐要淘汰
+		虚拟化网络：SDN
+		OpenStack云栈
+	Docker：容器云
+	ELK Stack：ElasticSearch ，Logstach ，Kibana
+	大数据：Hadoop v2、并行存储及分析平台，
+		HBase ，Hive ，Storm ，Spark
+	系统优化：需要谨慎
+	Python编程：学习任何一门语言，语法是知识、能够用来搭建工具才是技能。就如英文单词语法，只有灵活应用才有效。每天1000行代码！
+
+RedHat：认证考试，RHCSA助理、RHCE工程师、RHCA架构师
+学习阶段：
+	教室学习：4个月
+	工作学习：8个月，整理自己的笔记、应用技能，写经验、然后印出一本书，随时翻翻，增删改查。
+
+IT技术领域：
+	研发：想要让硬件实现基本功能，而让软件来实现高级功能
+		硬件，接口，冯-诺依曼体系
+		机器语言：二进制指令、数据，多少非人的东西
+		汇编语言：微指令，低级语言
+		软件，程序代码，
+		低级语言：汇编语言、汇编器，写驱动
+		高级语言：
+		系统级，C、C++、编译器，操作系统、对性能要求较高的服务类程序
+		应用级，Java、Python、Ruby，C#都已经是昨日黄花了哈哈。应用程序，各种软件引擎，ansible、puppet等等
+一个公司研发团队与应用团队，一般5:1。研发工作更多、风险更大
+	应用：各种环境下的使用
+		Linux运维：Linux生态圈中的各应用程序的应用，shell脚本编程，让某些应用工作自动完成。
+		python：比java还要高级的语言，能够实现很多工作
+	DevOps：
+	Development、Operation，真是还有很多要学习的东西
+越接入最终新产品，就业范围就越窄。所以就说基础非常重要，后面的深入！
+
+第三课 计算机基础和Linux操作系统基础
+Cell:8bits=1Bytes，最小存储单元就是字节，RAM
+程序：指令+数据，算法+数据结构
+过程式编程语言：
+	顺序执行，循环执行，选择执行、对于多个分支
+多任务：multi tasks，三个研发机构：Bell、MIT、GE=Multics
+	Bell实验室的Ken Thompson为自己的游戏Space Travel写程序
+	DEC：PDP-11，PDP-7用的汇编语言
+	1969年，Ken写出了Unics、之后演变成了Unix，最初是汇编语言
+	后来Bell实验室里的Dennis Ritch改进B语言、取名B+,之后改成C
+1974年，两人联名发表一篇文章到《美国计算机通信》上，第一次将Unix公之于众。很多大学读到了这篇文章，都想要这个系统。
+Bell实验室属于AT&T美国电信电话，只能免费给呀
+1978年美国西雅图的公司SCO开始推出Unix的商业发行版，1980Microsoft诞生
+后来Ken Thompson休完年假，去加州大学任教，Berkeley分校的Bill Joy成立BSRG系统研究小组，1977年发行BSD(Brekeley System Distribution)
+1980年，美国国防部，让Unix研发团队承接TCP/IP的工作
+1981年，Microsoft Bill Gates，有三个合伙人，花5万美元买断QDOS版权
+Quick and Dirty Operation System，内部技术人员敲敲打打研发了DOS系统
+比尔盖茨其实是个商业天才，说服了IBM公司购买自己的产品，消费者购买IBM电脑，可附带Microsoft中的系统，Microsoft赚取几十美元小费呵呵。虽然Microsoft一直到1990年都是使用Unix研发，但是不承认罢了。
+SUN公司，Bill Joy和另外两人合伙成立的，都是铁三角，一个负责技术研发、一个公司管理、一个营销合作。出售产品workstation
+据说Intel最初是做内存生产的，直到日本生产的内存质优价廉，Intel转型做CPU，最初的CPU是被逼出来的。
+90年代，AT&T公司拆分，Bell实验室独立出来，与BSD打官司、十年之争。
+在此期间，Apple诞生了，Joyblus逛到XEPOX（思勒主营打印机）的PARK实验室，生产出了以太网和鼠标。里面有个star图形界面的操作系统，乔布斯买回去研究，结果比尔盖茨知道了。也用三寸不烂之舌从乔布斯手中拷走一份源码，回去就研究，为赶在乔布斯之前发行产品，占领市场，以更低价格卖给乔布斯的合作伙伴，并给产品取名为Windows，Windows 1、2、3由此而来。
+而Windows最初的底层是DOS系统，对图形化界面不太友好，而与此同时，DES的VMS被打入冷宫，Gates说服VMS的主管，整个研发团队都加入了Microsoft。研发出了Windows NT(new technology)、Windows 2000、XP、2003等
+此时，Apple的图形化操作已经非常好了，甩Windows几个级别，而乔布斯因为公司内部斗争，挤出Apple公司，创办了个皮尔斯动画公司，在好莱坞闻名。
+之后，重返Apple，发布出Ipad等产品。
+马哥结语：伟大的艺术都是偷来了，天才是伟大的神偷。
+最后，Unix终归末路。
+1985年，MIT麻省理工学院，Richard Stallman极为左的家伙，发出GUN运动，
+GUN is not Unix，GPL：General Public License，FSF：Free Software Foundation，世界软件组件共产主义运动
+X-Window、GPL，gcc、gun c complier，vi、visual interface重大优秀软件
+Unix分支，SUN、Solaris，IBM、AIX，HP、HP-UX
+欧洲某大学教授Andrew，也是讲授操作系统的，Unix商业化后，用不了就自己写了个Minix，最初4000+行，牛人都很强，自己写个就好。但老头也挺古怪的，不允许其他人、世界上的黑客去优化这个Minix，再次陷入迷茫之路。
+System V Unix与BSD十年旷世之战，还有第二次Unix的内部战斗
+第四课 Linux开展史
+时间来到1990年，BSD的Jolitz研发将BSD移植到x86上，作者与商业公司出现纠纷，作者更想以开源方式贡献出去，最终夭折。386-BSD这个东西
+1991年8月，还是个大学生的芬兰Linus Torvalds宣布成立Linux研发项目，
+1993年左右，http协议也诞生了，BSD的研发人员担心受官司影响，纷纷转向Linux，把更多的精力放在Linux的研发上，最终壮大起来。
+同时有个叫Larry Wall，研发了patch工具、diff东东。
+完整的OS：
+	Kernel内核+Application应用
+狭义的OS，就只有Kernel，Linus最初也只提供了这个
+两者结合就是GUN/Linux，完美了。
+大型软件的研发，两种模式
+大教堂式，Microsoft研发的Windows，Windows是最大的流氓软件，确实方便了
+集市式，Linux的研发，抽空趁业务时间维护的，把程序源码开源出来，任何Bug都无处遁形，版本更新迭代非常快，而且稳定性强
+www.top500.org，排号世界上跑得最快的计算机，Linux系统的占据九成，
+现在的计算机领域开源运动已经深入人心，共产主义在计算机软件上已经达到
+Linux从最初就是那些计算机大神、黑客写的，黑乎乎的命令行，普通人难以理解到，而不像Windows傻瓜式的应用。Linux不屑于流行，但是在服务器领域绝对压倒性的优势。
+Mac操作系统，基于BSD(Unix)，人家Unix是可以做好图形界面的，现在Apple上的手机系统也是BSD的。
+OS的接口有两类：
+	GUI：Graphics User Interface，GNome、C开发，KDE、C++\qt库
+	CLI:Command Line Interface也有多种接口的，bash\zsh\sh等多种
+前台应用、后台服务，服务器对显示不是必要的，配置完五年不关机，正常
+操作系统功能：
+	驱动程序、进程管理、安全监控、网络功能、内存管理、文件系统…
+底层硬件接口十分丑陋，上面操作系统，
+POSIX，Portable Operation System，加的IX只是形式
+API与ABI、Application Binary Interface，面对运行的接口，GUN组织分享的都是源码，而需要编译
+Linux有多种发行版，其中三大主流发行版
+	Debian，社区管理，其中的Ubuntu的二次发行十分丰富、Knopix安全
+对于使用者要求更高、黑客级级更喜欢用。
+		ubuntu-mint，会在课程中讲到
+	SLS-Stackware-SuSE
+			OpenSUSE
+			SLES欧洲人民更喜欢用
+	RedHat，很多二次发行、北地卡尼亚大学
+		Redhat 9.0:
+			RedHat Enterprise Linux,RHEL、18个月一发
+			centos Community Enterprise OS，山寨兼容，主流会讲这个
+			Fedora Core、6个月一更
+	Gentoo
+	ArchLinux后起之秀
+软件程序：版本号
+	major.minor.release，如3.1.2
+	Linux内核发行版，0.99、2.2、2.4、2.6、3.0、4.0，官网www.kernel.org
+修复bug，也必定新增bug
+	GUN:vi、gcc
+发行版本也有自己的版本号，与内核没有关系，是自己的版本管理
+	RHEL:5.x、6.x、7.x
+		Fedora 目前到了23
+	Debian：8.x
+	OpenSuSE:13.x
+课外作业：GPL通用公共授权、BSD伯克利软件套件Berkeley Sofeware Distribution、Apache开放源码的网页服务，Apache Http Server简称Apache、是最流行的Web服务器端软件之一，Android最初由Andy Rubin开发，于2005年8月被Google收购、一种基于Linux的自由开放源代码的操作系统，开放手机联盟，布置作业就是用博客，很有趣
+
+
+
+
