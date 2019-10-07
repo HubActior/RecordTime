@@ -119,6 +119,7 @@ OS的接口有两类：
 操作系统功能：
 	驱动程序、进程管理、安全监控、网络功能、内存管理、文件系统…
 底层硬件接口十分丑陋，上面操作系统，
+程序编译调用System Call直接硬件接口，但更多是Libraries Call标准库调用
 POSIX，Portable Operation System，加的IX只是形式
 API与ABI、Application Binary Interface，面对运行的接口，GUN组织分享的都是源码，而需要编译
 Linux有多种发行版，其中三大主流发行版
@@ -145,8 +146,18 @@ Linux有多种发行版，其中三大主流发行版
 		Fedora 目前到了23
 	Debian：8.x
 	OpenSuSE:13.x
-课外作业：GPL通用公共授权、BSD伯克利软件套件Berkeley Sofeware Distribution、Apache开放源码的网页服务，Apache Http Server简称Apache、是最流行的Web服务器端软件之一，Android最初由Andy Rubin开发，于2005年8月被Google收购、一种基于Linux的自由开放源代码的操作系统，开放手机联盟，布置作业就是用博客，很有趣
+课外作业：GPL通用公共授权、BSD伯克利软件套件Berkeley Sofeware Distribution、Apache开放源码的网页服务，
+Apache Http Server简称Apache、是最流行的Web服务器端软件之一，Android最初由Andy Rubin开发，
+于2005年8月被Google收购、一种基于Linux的自由开放源代码的操作系统，开放手机联盟，布置作业就是用博客，很有趣
 
+20191007第二天学习
+第五课 Linux基础之计算机基础
+GUN/Linux :通常以源码（文本格式）提供，自由、灵活，给了使用者更高的选择权
+x86就是32位，而x64最初是AMD研发的、黑客级玩家用的Amd64，摩托罗拉的m68000、m68k
+而现在移动智能设备上的CPU主要是arm、是个设计商，power系列的CPU非常强大，联合开发了powerpc
+想要搭建到PC端，当时很难，现在的酷睿、AMD都可以跑在移动端上，Apple的移动产品跑的
+都是酷睿的CPU，理清CPU与OS，编译器本身也是程序，会编译到所在平台能识别的汇编语言
+最底层硬件-Kernel内核(操作系统)、System call-Libraries-程序
 
 
 
