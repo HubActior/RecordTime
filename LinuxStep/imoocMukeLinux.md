@@ -101,3 +101,26 @@ Windows压缩格式.zip、.rar，Linux中更多，如.zip、.gz、.bz2、.tar.gz
 用户登录查看命令，w直接回车就好，who看到用户，
     last，默认是读取/var/log/wtmp文件数据，可以看到所有用户登录信息，若发现不是自己登录的，就要考虑是否被黑客入侵了。
     lastlog，查看所有用户最后一次登录时间，默认读取/var/log/lastlog文件内容，一样不能用vi/vim打开，防止人为修改。
+第九节，Shell基础，翘牌、壳
+    再次巩固菜鸟教程的Shell知识，主要有两种语法类型Bourne和C，彼此不兼容，Bourne家族主要包括sh\ksh\bash\psh\zsh、C家族主要是做在Unix中，csh\tcsh。# sh直接进入sh状态，# exit退出。
+脚本执行方式，echo输出命令，可通过加-e来控制输出的格式和颜色等，
+    反斜线控制的字符转换，\a警告alarm，\b退格向左删除backspace，\n换行newline，\r回车，shell里!有特殊的意义，不能在输出中用。
+    \t制格符tab，格式# echo -e "hell\bo"，输出为helo要注意
+    # echo -e "\e[1;31m what your name \e[0m "，格式复杂、开启与关闭颜色。
+    30黑、31红、32绿、33黄、34蓝、35洋红、36青、37白色，
+    shell来实现系统管理十分方便，可以直接支持，
+    #!/bin/bash，这一句必须要加上，可以调用其他的语言特性
+    两种执行方式，1赋予执行权限，chmod 755 hello.sh，./hello.sh
+    另一种bash hello.sh也可以，但是不符合我们执行脚本的习惯。
+bash基本功能，
+    别名，通过alias可查看已经声明过的别名，也可修改
+    alias ls='ls --color=never'就不会再有颜色的区分，实验结束之后一定记得换回默认状态，否则会有意想不到的错误。
+    设定别名，alias 别名='原命令'，如现在建议使用vim、有颜色区分效果，但习惯了只用vi，就可以alias vi='vim'，但这个是临时生效。
+    写入环境变量配置文件，可以永久生效，vi ~/.bashrc相对与/root/绝对，默认下次重启时生效，source .bashrc，可手动生效。删除别名时unalias、alignment as，命令行与配置文件中都要执行才行。
+    命令生效顺序，
+        第一顺位执行用绝对或相对路径执行的命令
+        第二顺位执行别名
+        第三顺位执行Bash的内部命令
+        第四顺位执行按照$PATH环境变量定义的目录查找顺序找到的第一个命令
+    常用快捷键，ctrl+c 强制终止当前命令cancel、+l清屏clear
+    +a光标移动到命令行首ahead、+e行尾tail、+u光标所在位置删除到行首、+z把命令放入后台、+r在历史命令中搜索history，记住会用。
