@@ -74,3 +74,30 @@ Windows压缩格式.zip、.rar，Linux中更多，如.zip、.gz、.bz2、.tar.gz
 另外.bz2格式，bzip2 源文件，默认不保留源文件，可bzip2 -k，注意bzip2压根就不能压缩目录。解压缩bzip2 -d或bunzip2同理
     tar命令就是用来解决目录不能压缩的问题，tar -cvf 打包文件名 源文件，-c打包、-v显示过程、-f指定打包后的文件名。如tar -cvf what.tar what，-xvf解打包，先打包再压缩。有更加简洁的方式，tar -zcvf 压缩包名.tar.gz 源文件，
     -jcvf成.tar.bz2，可以指定解压缩目录tar -jxcf jp.tar.bz2 -C /tmp/，压缩到指定目录也可以，直接包名前加绝对路径。tar -ztvf test.tar.gz，只查看而非解压，注意t是test，测试查看的意思。着重后两种方式！
+20191008，周二，第七节，关机与重启命令
+[root@localhost ~]# shutdown [选项] 时间
+    -c，取消前一个关机命令
+    -h，关机，但是在服务器上，避免使用关机命令
+    -r，重启
+    时间，可以用now立即，也可以先看当前date，再设置定时关机，会把终端卡住，# shutdown -r 10:30 &，加个&意味着后台执行，不占界面
+    有其他关机命令，但是相对来说，还是shutdown更安全
+    # halt关机，poweroff关机，init 0关机
+    其他重启命令，# reboot相对安全，但init 6就别用了。
+    0-6七个系统运行级别，查询用# rnulevel，返回前一级别 当前级别，
+    # cat /etc/inittab，修改默认级别，id:3:initdefault:可选3与5
+    退出登录，在Windows叫注销，Linux中就是# logout，从一开始就应该养成良好习惯，光是关闭红叉，其实没有退出，次数多了会崩溃。
+第八节，其他常用命令
+    挂载mount，mount查询系统中已经挂载的设备，mount -a依据配置文件/etc/fstab的内容，自动挂载，都不要与修改它。
+    正式讲挂载命令格式，# mount [-t 文件系统] [-o 特殊选项] 设备文件名 挂载点，文件系统：ext3\4、光盘的话是iso9660，记住就好
+    特殊选项：atime/noatime、async/sync、exec/noexec、user/nouser，等一般默认的都是正确的。有个chmod 755 hello.sh，就相当给hello.sh赋了执行权限。
+    其实挂载主要还是用来挂载光盘的，在真机中就是把光盘放入光驱中、虚拟机中就是点光盘映像，一定记得选已连接得行框。
+    1首先在挂载目录下 mkdir /mnt/cdrom，建立挂载点
+    2挂载光盘，mount -t iso9660 /dev/cdrom /mnt/cdrom/
+        mount /dev/sr0 /mnt/cdrom/，两个都是一样的作用，sr0软链接关系，建议还是使用sr0
+    卸载命令，umonut 设备文件名 挂载点，umout /mnt/cdrom/，卸载时先出去，才能卸载。
+    挂载U盘，# fdish -l，先查看U盘设备文件名，是啥就sdb1处填啥
+        # mount -t vfat /dev/sdb1 /mnt/usb/
+    移动硬盘是NTFS系统的，Linux和Unix都是不支持的，所以Apple的电脑用移动硬盘也很麻烦，之后会讲到用网络传输才是便利。
+用户登录查看命令，w直接回车就好，who看到用户，
+    last，默认是读取/var/log/wtmp文件数据，可以看到所有用户登录信息，若发现不是自己登录的，就要考虑是否被黑客入侵了。
+    lastlog，查看所有用户最后一次登录时间，默认读取/var/log/lastlog文件内容，一样不能用vi/vim打开，防止人为修改。
