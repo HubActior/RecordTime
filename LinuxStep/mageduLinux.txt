@@ -305,3 +305,30 @@ cd ~USERHOME，切换到用户家目录，cd -，可以在两个目录之间上�
 在实际操作中十分有用，相关的环境变量，$PWD、$OLDPWD。
 ls -l，长格式列表，显示文件的详细属性信息，有了工具自己看英文解释就好
 -h，对文件大小进行单位换算，换成k字节的，换算结果可能非精确值。
+	cat命令，concatenate连接并显示，文本查看工本，可别看二进制文件
+还有个tac每一行逆序显示，file查看文件内容类型，echo回显
+单引号、强引用、不能执行替换，双引号、弱引用、变量引用会被替换。
+日期相关的命令，unix元年，公元是上帝耶稣诞生那年。
+data系统时钟，clock硬件时钟是hwclock软链接，显示或设置硬件时钟，
+cal日历calendar，cal [[month] year]，先天、月、年。
+第九课，感觉又有跳级样，Nginx工具讲解
+engine X，http80、https43，MIME多用途互联网邮件扩展major/minor
+主要方法：GET下载、HEAD、POST、PUT上传、DELETE、TRACE、OPTIONS
+http事务，request请求报文<--->response响应报文
+	request:
+		<method><URL><version>
+		<HEADERS>
+		……
+		这个要有个回车是很必要的
+		<body>
+	response:
+		<version><status><reason phrase>
+		<HEADERS>
+		……
+		这个要有个回车是很必要的
+		<body>
+	status:
+		1xx，信息类
+		2xx，成功类，200
+		3xx，重定向，301、302等
+感觉现在的课程就乱了，没有衔接上，暂时放置。
