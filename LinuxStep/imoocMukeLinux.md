@@ -336,4 +336,94 @@ crontab -e编辑edit、-l列出list、-r清空clear，编辑删除就好，分�
     安装速度比源码包快得多，如Windows上的exe
     缺点：经过编译，不再可以看到源代码
     功能选择不如源码包灵活，依赖性，要什么得给什么。
-
+第二节，rpm命令管理
+    包全名，操作的包在没有安装时，要使用包全名且注意路径
+    包名，已经安装的软件名时，使用包名，搜索/var/lib/rpm/中的数据库，rpm -ivh 包全名，放在/mnt/cdrom/Packages中
+-i，install安装，-v，verbose显示详细信息，-h，hash显示进度
+--nodeps不检测依赖性，但实际要想正确运行，必须解决依赖性。
+升级rpm -Uvh 包命名，U升级upgrade，卸载rpm -e 包名，依赖性，有卸载
+是因为RPM包安装时不能指定路径，而是系统默认位置。
+RPM查询rmp -q 包名，query、all全部也行，更推荐使用的是
+rpm -qa | grep httpd，rpm -qip，查询详细信息，information\packages，p都是指代没有安装的软件包
+    安装位置rpm -ql 包名，还可以rpm -qf查询系统文件是哪个包。
+R依赖，requires、还可以RPM包校验，查看包里文件是否被修改。
+文件提取，rpm2cpio 包命名 | cpio -idv .文件绝对路径，rpm2cpio将rpm包转换为cpio格式的命令，cpio是一个标准工具。
+第三节，yum在线管理
+    RedHat的yum管理是要付费的，所以我们讲CentOS，yum在本地有文件。
+查看源文件可以看到服务器网址等，另外可以搭建本地yum源。
+    1挂载光盘，mkdir /mnt/cdrom
+        mount /dev/cdrom /mnt/cdrom/
+    2使网络yum源失效，cd /etc/yum.repos.d/进入yum源目录
+    mv CentOS-Base.repo CentOS-Base.repo.ba修改后缀名，使失效
+    3使光盘yum源生效，vim CentOS-Media.repo
+    baseurl修改为自己的光盘挂载地址，注释下两个file，enabled改1
+然后就可以正常在无网情况下yum下载，推荐在无更新要求时使用本地源。
+yum命令，yum list，查询所有可用软件包列表
+    yum search 关键字，搜索服务器上所有和关键字相关的包
+    yum -y install 包名，自动回答yes，否则还要每次输yes下载，
+很多必须要安装的RPM包，yum -y install gcc，C的编译器就是一个，
+升级yum -y update httpd，与个人电脑不同，服务器最好不要随意升级，
+升级是有风险的，yum -y remove 包名，有个建议：服务器使用最小化安装，用什么安装什么，尽量不要卸载。Linux是没有垃圾软件的，自己注意。
+    LANG=en_US，LANG是可以修改当前环境语系的，临时生效就够了
+    yum grouplist软件组列表，yum groupinstall\groupremove组操作
+第四节，源码包与RPM包区别
+安装前，概念上，自己再理解，/etc/rc.d/init.d/httpd start
+安装后，安装位置，RPM包是不建议自己指定位置，否则很多命令无法使用
+    而源码包是需要指定位置的，一般是/usr/local/软件名.
+    源码包的安装准备，
+        安装C语言编译器，
+        下载源码包，http://mirror.bit.edu.cn/apache/httpd/官网
+目前apache2.2就比较成熟稳定的，建议使用，另外如果源码包和RPM包可以
+装两个，但是只能启动一个，因为需要相同的资源，对于需要成千上万的客户
+来访问的服务，还是用源码包，效果高；而gcc这类的，就可以使用RPM包，
+    安装注意事项，初学就不要另僻稀径。
+        源代码保存位置，/usr/local/src/
+        软件安装位置，/usr/local/
+    安装过程，
+        解压缩下载的源码包，tar -zxvf httpd-2.2.9.tar.gz
+        进入解压缩目录，cd httpd-2.2.9，必须步骤
+        ./configure软件配置与检查，位置、功能，环境等
+    简单起见，./configure --prefix=/usr/local/apache2/
+        make编译，正式编译，如果有错就make clean再来
+        make install，正式安装，如果有错就需要删掉安装目录再来
+至此，如果没有报错那就安装完成，安装目录里有INSTALL文件，可以看到
+具体的安装过程，以及一些使用帮助，这是源码包的作者写好了的。
+第五节，脚本安装包，这是大神们写的脚本命令，实质还是源码包或RPM包
+    介绍一下，强大的Nginx服务器，一款轻量级Web服务器/反向代理服务器
+及电子邮件(IMAP/POP3)，由俄国公司在2004年发布，Web服务还是目前
+访问量最大的网络应用。Nginx现在展现出很多优势于Apache,新建网站可以
+建议用Nginx搭建，国内有个lnmp.org网站，适合初学者，一键安装包。
+    准备工作，关闭RPM包安装的httpd和MySQL，最好卸载掉
+    保证yum源正常使用，关闭SELinux和防火墙
+SELinux来头非常大，美国国家安全局研发的，我们暂时不用，就可以
+vi /etc/selinux/config，读一下，把某个命令disabled，还重启电脑，
+    下载脚本包，http://lnmp.org/install.html，同样需要WinSCP，
+可以着重研究一下安装步骤，分析里面的代码，centos.sh脚本，足够熟悉后
+自己写个安装程序也行。
+初级课程四，服务管理，20191010周四
+第一节，简介与分类
+    系统的运行级别，0-6七个级别，这个就有些复习的意味了。
+runlevel查看、init改变，vim /etc/inittab修改默认级别，
+服务管理，Linux服务
+    RPM包默认安装的服务，独立的服务、基于xinetd服务
+    源码包安装的服务，xinetd超级守护进程，逐步被淘汰
+服务启动与自启动，Windows可以手动启动，Linux里没有手动概念，对于
+当前服务状态还得看服务与端口的课程。看服务/etc/services文件
+    里面的端口可以看对应的，查看系统开启的服务，netstat -tlunp
+t、tcp数据，u、udp数据，l、列出正在监听网络服务、不包含已经连接的
+n、用端口号显示服务、而不是服务名，p、列出服务的进程ID。a所有，
+第二节，RMP包服务管理
+usr是Unix System Resource，Unix系统资源的缩写，/etc/init.d里面的
+都是些shell脚本，可以看看，与/etc/rc.d/init.d是链接关系。
+    独立服务的自启动，chkconfig [--level 运行级别] [独立服务名] on|off，修改/etc/rc.d/rc.local文件，ntsysv是RedHat专用
+xinetd方式，不占内存，但相对较慢，在现在这种场景下，时间就是金钱，
+所以逐步在被独立服务替代，要使用xinetd则需要安装
+    yum -y install xinetd，/etc/xinetd.d/里面可以看到管理的启动
+项，设置disable = no就好，并且需要重启xinetd服务。这类的服务启动
+与自启动是相关联的，学习时知道就好。
+第三节，源码包服务管理
+apache服务，源码包网页起始页在/usr/local/apache2/htdocs/index.html
+而RPM包在/var/www/html/index.html，可以通过命令管理使源码包服务
+实现自启动，ln -s /usr/local/apache2/bin/apachectl /etc/rc.d/init.d/，逐步接触到比较生涩的东西，脚本里的注释，也是不可少的，虽然
+不会执行，但是充当介绍的作用，只需要知道有这个操作就好。
+第四节，总结，Linux领域，九成是RedHat系列、而Ubuntu只是少数，一定要注意。服务器管理，就是把不需要的服务关闭掉，释放资源。开启服务越少，被攻击的可能性就越低，脑图Xwind，风暴。
