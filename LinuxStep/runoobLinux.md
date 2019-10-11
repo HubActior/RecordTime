@@ -32,6 +32,7 @@ Shell数组，bash支持一维数组，类似C语言，下标由0开始，()表�
 Shell传递参数，$n，n代表一个数字，还有几个特殊字符来处理参数，
     $#、传递到脚本的参数个数，$$、脚本运行的当前进程的ID号，
     $@与$相同，但是使用时加引号，并在引号中返回每个参数。
+    $*是整体对待，而$@是分别对待，在循环时可以看到效果。
 Shell基本运算符，支持算数、关系、布尔、字符串、文件测试运算符等，
 bash原生不支持简单的数学运算，但可通过其他命令来实现，如awk和expr
 expr是一款表达式计算工具，如val=`expr 2 + 2`,echo "两数之和 $val"，这个表达式与运算符要有空格，否则出错。逐步熟悉！
@@ -44,3 +45,51 @@ expr是一款表达式计算工具，如val=`expr 2 + 2`,echo "两数之和 $val
     -n长度是否为0、不为0返回true，$是否为空、不为空返回true。
     文件测试运算符，-b file是否块设备文件、-c file是否字符设备
 -d是否目录，-r是否可读、-w是否可写、-x执行，-s空，-e存在
+20191011周五，echo命令
+显示普通字符串，echo what、显示转义字符echo "\n here"
+显示变量，用read命令从标准输入中读取，echo会自动换行
+    read name，，接收输入
+    echo "$name is what"，，输出，echo `date`显示命令执行结果。
+Shell printf输出命令，POSIX标准所定义，和C语言类似
+%s、%c、%d都是格式替代符，转义序列在实际使用上些当就记住了。
+\r，回车Carriage return，还有专门的test命令，
+    if test $[num1] -ep $[num2]
+    then
+        echo '两个数相等'
+    else
+        echo '两个数不相等'
+    fi
+    Shell和Php都是脚本编程语言，要注意$的使用与规范
+Shell流程，和Java、Php等不一样，sh流程控制不可为空
+php写法
+    <?php
+    if (isset($_GET["q"])) {
+        search(q);
+    }
+    else {
+        //不做任何事情
+    }
+sh/bash里，else分支没有，就不要写，末尾fi就是if倒写，还有类似的
+    if condition1
+    then
+        command1
+    elif condition2
+    then
+        command2
+    else
+        command3
+    fi
+    for循环，for var in item1,item2;do command1;done;
+    写在一行，命令之间肯定需要用;
+    for str in 'This is a string'
+    do
+        echo $str
+    done
+    while循环，用于不断不执行一系列命令，也用于输入文件中读取数据，通常用作测试条件
+    while condition
+    do
+        command
+    done
+    until循环执行一系列命令，直至条件为true时停止，区分
+    case $num in 1) echo '1';; esac
+    当然也有break，continue，两个;表示break，记忆下
