@@ -549,3 +549,6 @@ sed，数据替换，sed [选项] '[动作]' 文件名，
     s单独的字符串替换，sed 's/旧/新/g' 文件名
 sed -i '4s/80/100/g' student.txt，不再向屏幕输出，修改的文件内部
 sed -e 's/sma//g;s/big//g' student.txt，把原先的sma、big位置改成了空
+字符处理命令，
+    sort排序
+    wc统计，-l行数、-w单词数、-m字符数，实际环境加深印象。
